@@ -99,6 +99,11 @@ ORDER BY order_date DESC
 
 ```SQL
 
+SELECT company_name, length(company_name)
+FROM suppliers
+GROUP BY company_name
+HAVING length (company_name) > 20 
+
 ```
 
 * [ ] ***find all customers that include the word 'MARKET' in the contact title. Should return 19 records***
