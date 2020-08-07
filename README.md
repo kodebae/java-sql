@@ -141,7 +141,7 @@ WHERE contact_title LIKE '%Market%'
 
 ```
 
-* [ ] ***update _Bilbo Baggins_ record so that the postal code changes to _"11122"_***
+* [ X ] ***update _Bilbo Baggins_ record so that the postal code changes to _"11122"_***
 
   <details><summary>hint</summary>
 
@@ -150,6 +150,8 @@ WHERE contact_title LIKE '%Market%'
 
 ```SQL
 
+INSERT INTO customers (customer_id, company_name, contact_name, address, city, postal_code, country)
+VALUES ('SHIRE', 'The Shire', 'Bilbo Bagins', '1 Hobbit-Hole', 'Bag End', '111', 'Middle Earth')
 
 ```
 
@@ -194,7 +196,7 @@ WHERE contact_title LIKE '%Market%'
 
 Note: This step does not use PostgreSQL!
 
-* [ ] ***Take the following data and normalize it into a 3NF database***
+* [ X ] ***Take the following data and normalize it into a 3NF database***
 
 | Person Name | Pet Name | Pet Type | Pet Name 2 | Pet Type 2 | Pet Name 3 | Pet Type 3 | Fenced Yard | City Dweller |
 |-------------|----------|----------|------------|------------|------------|------------|-------------|--------------|
@@ -209,11 +211,23 @@ Below are some empty tables to be used to normalize the database
 
 Table Name:
 
-|            |            |            |            |            |            |            |            |            |
+|  Pet Name  | Pet Type   |Fenced Yard |            |            |            |            |            |            |
 |------------|------------|------------|------------|------------|------------|------------|------------|------------|
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
+| Ellie      |   Dog      |   No       |            |            |            |            |            |            |
+| Joe        |   Horse    |   No       |            |            |            |            |            |            |
+| Ginger     |   Dog      |   Yes      |            |            |            |            |            |            |
+| Tiger      |   Cat      |   No       |            |            |            |            |            |            |
+| Miss Kitty |   Cat      |   Yes      |            |            |            |            |            |            |
+| Toby       |   Turtle   |   No       |            |            |            |            |            |            |
+| Bubble     |   Fish     |   Yes      |            |            |            |            |            |            |
+
+Table Name:
+
+|Person Name |City Dweller| Fenced Yard|            |            |            |            |            |            |
+|------------|------------|------------|------------|------------|------------|------------|------------|------------|
+|    Jane    |    Yes     |   No       |            |            |            |            |            |            |
+|    Bob     |    No      |   No       |            |            |            |            |            |            |
+|    Sam     |    No      |   Yes      |            |            |            |            |            |            |
 |            |            |            |            |            |            |            |            |            |
 |            |            |            |            |            |            |            |            |            |
 |            |            |            |            |            |            |            |            |            |
@@ -221,27 +235,15 @@ Table Name:
 
 Table Name:
 
-|            |            |            |            |            |            |            |            |            |
+| Pet Name   |Person Name | Pet Type   |Fenced Yard |City Dweller|            |            |            |            |
 |------------|------------|------------|------------|------------|------------|------------|------------|------------|
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-
-Table Name:
-
-|            |            |            |            |            |            |            |            |            |
-|------------|------------|------------|------------|------------|------------|------------|------------|------------|
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
+| Ellie      |   Jane     |   Dog      |   No       |  Yes       |            |            |            |            |
+| Joe        |   Bob      |   Horse    |   No       |  No        |            |            |            |            |
+| Ginger     |   Sam      |   Dog      |   Yes      |  No        |            |            |            |            |
+| Tiger      |   Jane     |   Cat      |   No       |  Yes       |            |            |            |            |
+| Miss Kitty |   Sam      |   Cat      |   Yes      |  No        |            |            |            |            |
+| Toby       |   Jane     |   Turtle   |   No       |  Yes       |            |            |            |            |
+| Bubble     |   Sam      |   Fish     |   Yes      |  No        |            |            |            |            |
 
 Table Name:
 
