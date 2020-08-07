@@ -119,11 +119,11 @@ HAVING length (company_name) > 20
 
 SELECT contact_title
 FROM customers
-WHERE contact_title LIKE '%Market%'
+WHERE upper(contact_title) LIKE '%MARKET%'
 
 ```
 
-* [  ] ***add a customer record for***
+* [ X  ] ***add a customer record for***
 * customer id is 'SHIRE'
 * company name is 'The Shire'
 * contact name is 'Bilbo Baggins'
@@ -137,7 +137,8 @@ WHERE contact_title LIKE '%Market%'
   </details>
 
 ```SQL
-
+INSERT INTO customers (customer_id, company_name, contact_name, address, city, postal_code, country)
+VALUES ('SHIRE', 'The Shire', 'Bilbo Bagins', '1 Hobbit-Hole', 'Bag End', '111', 'Middle Earth')
 
 ```
 
@@ -150,8 +151,10 @@ WHERE contact_title LIKE '%Market%'
 
 ```SQL
 
-INSERT INTO customers (customer_id, company_name, contact_name, address, city, postal_code, country)
-VALUES ('SHIRE', 'The Shire', 'Bilbo Bagins', '1 Hobbit-Hole', 'Bag End', '111', 'Middle Earth')
+UPDATE customers
+SET postal_code = '111222'
+WHERE customer_id = 'SHIRE'
+
 
 ```
 
@@ -165,6 +168,11 @@ VALUES ('SHIRE', 'The Shire', 'Bilbo Bagins', '1 Hobbit-Hole', 'Bag End', '111',
 
 ```SQL
 
+select c.company_name, count(o.customer_id) as order_amount
+from orders o join customers c 
+on o.customer_id = c.customer_id 
+group by c.company_name 
+order by c.company_name 
 
 ```
 
@@ -177,6 +185,11 @@ VALUES ('SHIRE', 'The Shire', 'Bilbo Bagins', '1 Hobbit-Hole', 'Bag End', '111',
 
 ```SQL
 
+select c.contact_name , count(o.customer_id) as order_amount
+from orders o join customers c 
+on o.customer_id = c.customer_id 
+group by c.contact_name 
+order by count(o.customer_id ) desc 
 
 ```
 
@@ -189,6 +202,11 @@ VALUES ('SHIRE', 'The Shire', 'Bilbo Bagins', '1 Hobbit-Hole', 'Bag End', '111',
 
 ```SQL
 
+select c.city, count(o.customer_id) as order_qty
+from orders o join customers c 
+on o.customer_id = c.customer_id 
+group by c.city 
+order by c.city
 
 ```
 
@@ -209,41 +227,29 @@ Below are some empty tables to be used to normalize the database
 * Not all of the cells will contain data in the final solution
 * Feel free to edit these tables as necessary
 
-Table Name:
+Table Name: Pets
 
-|  Pet Name  | Pet Type   |Fenced Yard |            |            |            |            |            |            |
+|  Pet Name  | Pet Type   |Pet ID      | Person ID  |            |            |            |            |            |
 |------------|------------|------------|------------|------------|------------|------------|------------|------------|
-| Ellie      |   Dog      |   No       |            |            |            |            |            |            |
-| Joe        |   Horse    |   No       |            |            |            |            |            |            |
-| Ginger     |   Dog      |   Yes      |            |            |            |            |            |            |
-| Tiger      |   Cat      |   No       |            |            |            |            |            |            |
-| Miss Kitty |   Cat      |   Yes      |            |            |            |            |            |            |
-| Toby       |   Turtle   |   No       |            |            |            |            |            |            |
-| Bubble     |   Fish     |   Yes      |            |            |            |            |            |            |
+| Ellie      |   Dog      |   1        |   1         |            |            |            |            |            |
+| Joe        |   Horse    |   2        |      2      |            |            |            |            |            |
+| Ginger     |   Dog      |  3         |      3      |            |            |            |            |            |
+| Tiger      |   Cat      |   4        |      1      |            |            |            |            |            |
+| Miss Kitty |   Cat      |   5        |     3       |            |            |            |            |            |
+| Toby       |   Turtle   |   6        |      1      |            |            |            |            |            |
+| Bubble     |   Fish     |    7       |      3      |            |            |            |            |            |
 
-Table Name:
+Table Name: Persons
 
-|Person Name |City Dweller| Fenced Yard|            |            |            |            |            |            |
+|Person Name |City Dweller| Fenced Yard|  Person ID          |            |            |            |            |            |
 |------------|------------|------------|------------|------------|------------|------------|------------|------------|
-|    Jane    |    Yes     |   No       |            |            |            |            |            |            |
-|    Bob     |    No      |   No       |            |            |            |            |            |            |
-|    Sam     |    No      |   Yes      |            |            |            |            |            |            |
+|    Jane    |    Yes     |   No       |    1        |            |            |            |            |            |
+|    Bob     |    No      |   No       |      2      |            |            |            |            |            |
+|    Sam     |    No      |   Yes      |    3        |            |            |            |            |            |
 |            |            |            |            |            |            |            |            |            |
 |            |            |            |            |            |            |            |            |            |
 |            |            |            |            |            |            |            |            |            |
 |            |            |            |            |            |            |            |            |            |
-
-Table Name:
-
-| Pet Name   |Person Name | Pet Type   |Fenced Yard |City Dweller|            |            |            |            |
-|------------|------------|------------|------------|------------|------------|------------|------------|------------|
-| Ellie      |   Jane     |   Dog      |   No       |  Yes       |            |            |            |            |
-| Joe        |   Bob      |   Horse    |   No       |  No        |            |            |            |            |
-| Ginger     |   Sam      |   Dog      |   Yes      |  No        |            |            |            |            |
-| Tiger      |   Jane     |   Cat      |   No       |  Yes       |            |            |            |            |
-| Miss Kitty |   Sam      |   Cat      |   Yes      |  No        |            |            |            |            |
-| Toby       |   Jane     |   Turtle   |   No       |  Yes       |            |            |            |            |
-| Bubble     |   Sam      |   Fish     |   Yes      |  No        |            |            |            |            |
 
 Table Name:
 
